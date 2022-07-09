@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>v4</title>
+  <title>v5</title>
   <meta charset='utf-8'>
   <style type='text/css'>
     html {
@@ -24,6 +24,7 @@
   <div id='map'></div>
   <script>
     function initMap() {
+      import React, { Component } from 'react';
 
       const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
       const ssId = '1wB4PLZziDwQKJOUbcJ7xsNgzGlR2a9hxV4W_tM8gAtw';
@@ -44,12 +45,12 @@
       });
 
       var info = new google.maps.InfoWindow({
-        content: '<div style='font-size: 25px;color: red'>ThaiCreate.Com Camping</div>'
-      });
+        content: '<div style='font- size: 25px; color: red'>ThaiCreate.Com Camping</div>'
+    });
 
-      google.maps.event.addListener(marker, 'click', function () {
-        info.open(maps, marker);
-      });
+    google.maps.event.addListener(marker, 'click', function () {
+      info.open(maps, marker);
+    });
 
     }
 
@@ -68,16 +69,16 @@
         return data;
       }
 
-      render() {
-        return (
-          <div className='App'>
-            <button onClick={this.getSheetValues}>Get sheet values</button>
-          </div>
-        );
-      }
+      // render() {
+      //   return (
+      //     <div className='App'>
+      //       <button onClick={this.getSheetValues}>Get sheet values</button>
+      //     </div>
+      //   );
+      // }
     }
 
-    export default App;
+    // export default App;
 
     // export default App;
 
