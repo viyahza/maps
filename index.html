@@ -2,9 +2,9 @@
 <html>
 
 <head>
-  <title>v3</title>
-  <meta charset="utf-8">
-  <style type="text/css">
+  <title>v4</title>
+  <meta charset='utf-8'>
+  <style type='text/css'>
     html {
       height: 100%;
     }
@@ -21,15 +21,22 @@
 </head>
 
 <body>
-  <div id="map"></div>
+  <div id='map'></div>
   <script>
     function initMap() {
+
+      const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
+      const ssId = '1wB4PLZziDwQKJOUbcJ7xsNgzGlR2a9hxV4W_tM8gAtw';
+      // 4/0AdQt8qhIuNksTdYDGfGuZ2N6px3kzMO8JLeRKSh1HTbk0CE6WIrgC4kqb0vOmXNGOkiZMA
+      const token = 'ya29.A0AVA9y1tgE0sBatG_4s_5fdAI99ObEagqQb4n8eDLQqc5S3h4kz5JwiT-tzOeBGFWizMIxt3Dn_N3KHh9q4_XGXGUppfl5cwArFpbBSQXa3JlhXV0IlVhDEqBVF-2RJh0rxgs8MbEfMs7sX59c7yj13WpJ8JlYUNnWUtBVEFTQVRBU0ZRRl91NjFWU24zcGpnR2RibGdGR0hvWGRRNmRadw0163';
+
+
       var mapOptions = {
         center: { lat: 17.0118279, lng: 99.8209885 },
         zoom: 16,
       }
 
-      var maps = new google.maps.Map(document.getElementById("map"), mapOptions);
+      var maps = new google.maps.Map(document.getElementById('map'), mapOptions);
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(17.0118279, 99.8209885),
         map: maps,
@@ -37,7 +44,7 @@
       });
 
       var info = new google.maps.InfoWindow({
-        content: '<div style="font-size: 25px;color: red">ThaiCreate.Com Camping</div>'
+        content: '<div style='font-size: 25px;color: red'>ThaiCreate.Com Camping</div>'
       });
 
       google.maps.event.addListener(marker, 'click', function () {
@@ -45,8 +52,38 @@
       });
 
     }
+
+    class App extends Component {
+
+      getSheetValues = async () => {
+        const request = await fetch('https://sheets.googleapis.com/v4/spreadsheets/${ssId}/values/A2:O20',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ${token}'
+            }
+          });
+        const data = await request.json();
+        console.log(data);
+        return data;
+      }
+
+      render() {
+        return (
+          <div className='App'>
+            <button onClick={this.getSheetValues}>Get sheet values</button>
+          </div>
+        );
+      }
+    }
+
+    export default App;
+
+    // export default App;
+
+
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU&callback=initMap"
+  <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU&callback=initMap'
     async defer></script>
 </body>
 
