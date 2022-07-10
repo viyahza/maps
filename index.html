@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>v5</title>
+  <title>v1</title>
   <meta charset='utf-8'>
   <style type='text/css'>
     html {
@@ -14,51 +14,53 @@
       height: 100%;
     }
 
-    #map {
+    div {
       height: 100%;
     }
   </style>
+  <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU'>
+  </script>
 </head>
 
-<body>
+<body onload='start()'>
   <div id='main'></div>
   <script>
-    function initMap() {
-      // var maps;
-      // var main = document.getElementById('main');
-      var items = [{ lat: 17.0118279, lng: 99.8209885 }, { lat: 17.0125099, lng: 99.8215962 }];
-      var position = {
-        center: { lat: 17.0118279, lng: 99.8209885 },
-        zoom: 16,
-      }
+    let map = null
+    let items = [[17.0118279, 99.8209885], [17.0125099, 99.8215962]];
+    let data = {
+      zoom: 16,
+      center: { lat: 17.0118279, lng: 99.8209885 }
+    }
 
-      var maps = new google.maps.Map(document.getElementById('main'), position);
-
-      for (let i of items) {
+    function start() {
+      map = new google.maps.Map(document.getElementById('main'), data)
+      for (let i = 0; i < items.length; i++) {
         new google.maps.Marker({
-          map: maps,
-          position: i
+          map: map,
+          position: {
+            lat: items[i][0],
+            lng: items[i][1]
+          }
         })
       }
 
-      // var marker = new google.maps.Marker({
-      //   position: new google.maps.LatLng(17.0118279, 99.8209885),
-      //   // position: new google.maps.LatLng(17.0125099, 99.8215962),
-      //   map: maps
-      // });
 
-      // var info = new google.maps.InfoWindow({
-      //   content: '<div style="font-size: 25px;color: red">ThaiCreate.Com Camping</div>'
-      // });
 
-      // google.maps.event.addListener(marker, 'click', function () {
-      //   info.open(maps, marker);
-      // });
+      var info = new google.maps.InfoWindow({
+        content: '<div style="font-size: 25px;color: red">ThaiCreate.Com Camping</div>'
+      });
+
+      google.maps.event.addListener(marker, 'click', function () {
+        info.open(maps, marker);
+      });
+
+
+
+
 
     }
+
   </script>
-  <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU&callback=initMap'
-    async defer></script>
 </body>
 
 </html>
