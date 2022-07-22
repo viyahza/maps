@@ -1,76 +1,78 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Sheets API Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p>Sheets API Quickstart</p>
+		
+<!-- Get Sheets data -->
+<button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+<button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
+<button onclick="makeApiCall()"></button>
+<div id="apiresult">result </div>
 
-<head>
-  <title>OMS Report v3</title>
-  <meta charset='utf-8'>
-  <style>
-    html {
-      height: 100%
+<script>
+    function makeApiCall() {
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1wB4PLZziDwQKJOUbcJ7xsNgzGlR2a9hxV4W_tM8gAtw',
+          range: 'A1'
+        }).then((response) => {
+ 
+        var result = response.result.values;
+      
+        console.log(result);
+
+        document.getElementById("apiresult").innerHTML = result;
+      });
     }
 
-    body {
-      height: 100%;
-      margin: 0px;
-      padding: 0px
+    function initClient() {
+      const CLIENT_ID = '785513147596-8sbcdm4i5gr2n4v36ss720idaietdbpb.apps.googleusercontent.com';
+      const API_KEY = 'AIzaSyDHB8QFKDS25udc1y38oLb06zp4pBW9YEg';
+
+      //   Authorize using one of the following scopes:
+      //   'https://www.googleapis.com/auth/drive'
+      //   'https://www.googleapis.com/auth/drive.file'
+      //   'https://www.googleapis.com/auth/drive.readonly'
+      //   'https://www.googleapis.com/auth/spreadsheets'
+      //   'https://www.googleapis.com/auth/spreadsheets.readonly'
+      var SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+
+      gapi.client.init({
+        'apiKey': API_KEY,
+        'clientId': CLIENT_ID,
+        'scope': SCOPE,
+        'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+      }).then(function() {
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+        updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      });
     }
 
-    #map {
-      width: 100%;
-      height: 100%
-    }
-  </style>
-  <script async defer
-    src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU'></script>
-</head>
-
-<body onload='start();'>
-  <div id='display'></div>
-  <div id='map'></div>
-
-  <script>
-    let rng = 'A1:C5';
-    let url = 'https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ&single=true&gid=0&output=csv&range=' + rng;
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4) {
-        document.getElementById("display").innerHTML = xmlhttp.responseText;
-        alert(xmlhttp.responseText);
-      }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send(null);
-
-    let map = null
-    let item = [[17.0118279, 99.8209885], [17.0125099, 99.8215962]];
-    let data = {
-      zoom: 16,
-      center: { lat: 17.0118279, lng: 99.8209885 }
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
     }
 
-    function start() {
-      map = new google.maps.Map(document.getElementById('map'), data)
-      for (let i = 0; i < item.length; i++) {
-        let marker = new google.maps.Marker({
-          map: map,
-          position: {
-            lat: item[i][0],
-            lng: item[i][1]
-          }
-        });
-
-        let info = new google.maps.InfoWindow({
-          content: '<div>beta</div>'
-        });
-
-        google.maps.event.addListener(marker, 'click', function () {
-          info.open(map, marker);
-        });
-
+    function updateSignInStatus(isSignedIn) {
+      if (isSignedIn) {
+        makeApiCall();
       }
     }
 
-  </script>
-</body>
+    function handleSignInClick(event) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
 
+    function handleSignOutClick(event) {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+</script>
+<script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>
+
+  </body>
 </html>
