@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script type="text/javascript" src="/js/lib/dummy.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+    <script type="text/javascript" src="https://cdn.anychart.com/releases/latest/js/anychart-base.min.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+
+    <style id="compiled-css" type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            width: 100%;
+            height: 50%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container2 {
+            width: 100%;
+            height: 50%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* EOS */
+    </style>
+
+    <script id="insert"></script>
+
+</head>
+
+<body>
+    <div id="container1"></div>
+    <div id="container2"></div>
+
+    <script type="text/javascript">//<![CDATA[
+
+
+        const start = () => {
+            // Initialize the JavaScript client library
+            gapi.client.init({
+                'apiKey': '{GOOGLE_API_KEY}',
+                'discoveryDocs': ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+            }).then(() => {
+                return gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: '{SPREADSHEET_ID}',
+                    range: '{SHEET_NAME}!{DATA_RANGE}', // for example: List 1!A1:B6
+                })
+            }).then((response) => {
+                // Parse the response data
+                const loadedData = response.result.values;
+                const parsedData = {
+                    'header': loadedData.shift(),
+                    'rows': loadedData,
+                };
+
+                // Create an instance of a column chart
+                const columnChart = anychart.column();
+
+                // Set the data
+                columnChart.data(parsedData);
+
+                // comfigure chart appearance settings
+                columnChart.title('Sales volume by manager');
+                columnChart.xAxis().title('Manager');
+                columnChart.yAxis().title('Sales volume, $');
+
+                // Set the container element and draw the chart
+                columnChart.container('container1').draw();
+
+                // create a pie chart likewise
+                const pieChart = anychart.pie(parsedData);
+                pieChart.title('Sales volume distribution in the department');
+                pieChart.legend().itemsLayout('vertical').position('right');
+                pieChart.container('container2').draw();
+            }).catch((err) => {
+                console.log(err.error.message);
+            });
+        };
+
+        // Load the JavaScript client library
+        gapi.load('client', start);
+
+
+  //]]></script>
+
+    <script>
+        // tell the embed parent frame the height of the content
+        if (window.parent && window.parent.parent) {
+            window.parent.parent.postMessage(["resultsFrame", {
+                height: document.body.getBoundingClientRect().height,
+                slug: "82hn9dmL"
+            }], "*")
+        }
+
+        // always overwrite window.name, in case users try to set it manually
+        window.name = "result"
+    </script>
+
+
+</body>
+
+</html>
