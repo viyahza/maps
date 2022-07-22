@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OMS Report</title>
+  <title>OMS Report v.1</title>
   <meta charset='utf-8'>
   <style>
     html {
@@ -25,11 +25,12 @@
 </head>
 
 <body onload='start();'>
-  <div id="display"></div>
+  <div id='display'></div>
   <div id='map'></div>
 
   <script>
-    var url = 'https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ&single=true&gid=0&range=A1:C5&output=csv';
+    var data = '&range=A1:C5';
+    var urlz = 'https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ&single=true&gid=0&output=csv' + data;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4) {
@@ -37,7 +38,7 @@
         alert(xmlhttp.responseText);
       }
     };
-    xmlhttp.open("GET", url, true);
+    xmlhttp.open("GET", urlz, true);
     xmlhttp.send(null);
 
     let map = null
