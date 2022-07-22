@@ -2,95 +2,49 @@
 <html>
 
 <head>
-  <title>Sheets API Quickstart</title>
-  <meta charset="utf-8" />
+  <title>OMS Report v3</title>
+  <meta charset='utf-8'>
   <style>
-    html,
-    body,
-    #tbl {
-      width: 100%;
+    html {
+      height: 100%
+    }
+
+    body {
       height: 100%;
-      margin: 0;
-      padding: 0;
+      margin: 0px;
+      padding: 0px
     }
 
-    table {
+    #map {
       width: 100%;
-      background-color: #cecece;
-    }
-
-    th {
-      height: 70px;
-    }
-
-    tr {
-      height: 35px;
-    }
-
-    table,
-    th,
-    td {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-
-    caption {
-      padding: 20px;
-      color: #495366;
-      text-align: left;
-      letter-spacing: 1px;
+      height: 100%
     }
   </style>
-
 
 </head>
 
 <body>
+  <div id='display'></div>
+
   <script>
     const start = () => {
-      // Initialize the JavaScript client library
       gapi.client.init({
         'apiKey': 'AIzaSyDHB8QFKDS25udc1y38oLb06zp4pBW9YEg',
         'discoveryDocs': ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
       }).then(() => {
         return gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1wB4PLZziDwQKJOUbcJ7xsNgzGlR2a9hxV4W_tM8gAtw',
-          range: 'report!A1:O1', // for example: List 1!A1:B6
+          range: 'report!A1:O1'
         })
       }).then((response) => {
-        // Parse the response data
         const loadedData = response.result.values;
+        document.getElementById("display").innerHTML = loadedData;
 
-        // populate HTML table with data
-        const table = document.getElementsByTagName('table')[0];
-
-        // add column headers
-        const columnHeaders = document.createElement('tr');
-        columnHeaders.innerHTML = `<th>${loadedData[0][0]}</th>
-<th>${loadedData[0][1]}</th>`;
-        table.appendChild(columnHeaders);
-
-        // add table data rows
-        for (let i = 1; i < loadedData.length; i++) {
-          const tableRow = document.createElement('tr');
-          tableRow.innerHTML = `<td>${loadedData[i][0]}</td>
-<td>${loadedData[i][1]}</td>`;
-          table.appendChild(tableRow);
-        }
       }).catch((err) => {
         console.log(err.error.message);
       });
     };
   </script>
-
-  <div id="tbl">
-    <table>
-      <caption>Sales volume</caption>
-    </table>
-  </div>
-
 </body>
-
-
 
 </html>
