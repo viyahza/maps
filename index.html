@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OMS Report v2</title>
+  <title>OMS Report v3</title>
   <meta charset='utf-8'>
   <style>
     html {
@@ -30,7 +30,7 @@
 
   <script>
     let rng = 'A1:C5';
-    let url = 'https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ&single=true&gid=0&output=csv&range=A1:C5';
+    let url = 'https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ&single=true&gid=0&output=csv&range=' + rng;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4) {
