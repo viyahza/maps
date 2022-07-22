@@ -14,30 +14,43 @@
 
     <link rel="stylesheet" type="text/css" href="/css/result-light.css">
 
-    <script type="text/javascript" src="https://cdn.anychart.com/releases/latest/js/anychart-base.min.js"></script>
     <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
 
     <style id="compiled-css" type="text/css">
         html,
-        body {
+        body,
+        #tbl {
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
         }
 
-        #container1 {
+        table {
             width: 100%;
-            height: 50%;
-            margin: 0;
-            padding: 0;
+            background-color: #cecece;
         }
 
-        #container2 {
-            width: 100%;
-            height: 50%;
-            margin: 0;
-            padding: 0;
+        th {
+            height: 70px;
+        }
+
+        tr {
+            height: 35px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        caption {
+            padding: 20px;
+            color: #495366;
+            text-align: left;
+            letter-spacing: 1px;
         }
 
         /* EOS */
@@ -48,8 +61,11 @@
 </head>
 
 <body>
-    <div id="container1"></div>
-    <div id="container2"></div>
+    <div id="tbl">
+        <table>
+            <caption>Sales volume</caption>
+        </table>
+    </div>
 
     <script type="text/javascript">//<![CDATA[
 
@@ -67,30 +83,23 @@
             }).then((response) => {
                 // Parse the response data
                 const loadedData = response.result.values;
-                const parsedData = {
-                    'header': loadedData.shift(),
-                    'rows': loadedData,
-                };
 
-                // Create an instance of a column chart
-                const columnChart = anychart.column();
+                // populate HTML table with data
+                const table = document.getElementsByTagName('table')[0];
 
-                // Set the data
-                columnChart.data(parsedData);
+                // add column headers
+                const columnHeaders = document.createElement('tr');
+                columnHeaders.innerHTML = `<th>${loadedData[0][0]}</th>
+<th>${loadedData[0][1]}</th>`;
+                table.appendChild(columnHeaders);
 
-                // comfigure chart appearance settings
-                columnChart.title('Sales volume by manager');
-                columnChart.xAxis().title('Manager');
-                columnChart.yAxis().title('Sales volume, $');
-
-                // Set the container element and draw the chart
-                columnChart.container('container1').draw();
-
-                // create a pie chart likewise
-                const pieChart = anychart.pie(parsedData);
-                pieChart.title('Sales volume distribution in the department');
-                pieChart.legend().itemsLayout('vertical').position('right');
-                pieChart.container('container2').draw();
+                // add table data rows
+                for (let i = 1; i < loadedData.length; i++) {
+                    const tableRow = document.createElement('tr');
+                    tableRow.innerHTML = `<td>${loadedData[i][0]}</td>
+<td>${loadedData[i][1]}</td>`;
+                    table.appendChild(tableRow);
+                }
             }).catch((err) => {
                 console.log(err.error.message);
             });
@@ -107,7 +116,7 @@
         if (window.parent && window.parent.parent) {
             window.parent.parent.postMessage(["resultsFrame", {
                 height: document.body.getBoundingClientRect().height,
-                slug: "82hn9dmL"
+                slug: "7ngrfpxk"
             }], "*")
         }
 

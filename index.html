@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OMS Report v4</title>
+  <title>OMS Report v5</title>
   <meta charset='utf-8'>
   <style>
     html {
@@ -39,7 +39,7 @@
         })
       }).then((response) => {
         const loadedData = response.result.values;
-        document.getElementById("display").innerHTML = loadedData;
+        document.getElementById("display").innerHTML = loadedData[0][0];
 
       }).catch((err) => {
         console.log(err.error.message);
