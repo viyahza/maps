@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>OMS Report v3</title>
+  <title>OMS Report v4</title>
   <meta charset='utf-8'>
   <style>
     html {
@@ -20,8 +20,8 @@
       height: 100%
     }
   </style>
-  <script async defer
-    src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU'></script>
+  <script async defer src='https://maps.googleapis.com/maps/api/js'></script>
+  <!-- <script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAK3RgqSLy1toc4lkh2JVFQ5ipuRB106vU'></script> -->
 </head>
 
 <body onload='start();'>
@@ -41,7 +41,7 @@
     xmlhttp.open("GET", url, true);
     xmlhttp.send(null);
 
-    let map = null
+    let map = null;
     let item = [[17.0118279, 99.8209885], [17.0125099, 99.8215962]];
     let data = {
       zoom: 16,
@@ -49,7 +49,7 @@
     }
 
     function start() {
-      map = new google.maps.Map(document.getElementById('map'), data)
+      map = new google.maps.Map(document.getElementById('map'), data);
       for (let i = 0; i < item.length; i++) {
         let marker = new google.maps.Marker({
           map: map,
