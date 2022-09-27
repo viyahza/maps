@@ -28,12 +28,8 @@
   <div id='map'></div>
 
   <script>
-    // https://docs.google.com/spreadsheets/d/e/2PACX-1vSBT4eveMztmu5dciQeKM_pqBrvYqPwEPED4KyRzfEZJY28jnB0bTuV2Mci5DhudNU3ouKxe1Iqhq0c/pubhtml?gid=113397203&single=true
-    // https://docs.google.com/spreadsheets/d/e/2PACX-1vSBT4eveMztmu5dciQeKM_pqBrvYqPwEPED4KyRzfEZJY28jnB0bTuV2Mci5DhudNU3ouKxe1Iqhq0c/pub?gid=113397203&single=true&output=csv
-    // https://docs.google.com/spreadsheets/d/1wB4PLZziDwQKJOUbcJ7xsNgzGlR2a9hxV4W_tM8gAtw/edit?usp=sharing
-    let rng = 'A1:C5';
+    let rng = 'A2:O5';
     // https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ
-    // https://docs.google.com/spreadsheets/u/0/d/1Mqw_vPV9FX9NR1mhGAIP-Xs6w_HhEPPNgFazAhSKJOg/pub
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSBT4eveMztmu5dciQeKM_pqBrvYqPwEPED4KyRzfEZJY28jnB0bTuV2Mci5DhudNU3ouKxe1Iqhq0c/pub?gid=113397203&single=true&output=csv&range=' + rng;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
