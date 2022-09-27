@@ -36,7 +36,7 @@
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4) {
-        res = document.getElementById("display").innerHTML = xmlhttp.responseText;
+        document.getElementById("display").innerHTML = xmlhttp.responseText;
         res = xmlhttp.responseText;
       }
     };
