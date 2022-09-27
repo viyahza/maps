@@ -38,6 +38,8 @@
       if (xmlhttp.readyState == 4) {
         document.getElementById("display").innerHTML = xmlhttp.responseText;
         res = xmlhttp.responseText;
+        alert(res);
+        
       }
     };
     xmlhttp.open("GET", url, true);
