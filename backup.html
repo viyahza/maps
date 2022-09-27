@@ -38,12 +38,12 @@
         // alert(xmlhttp.responseText);
       }
     };
-    xmlhttp.open("GET", url, true);
+    xmlhttp.open('GET', url, true);
     xmlhttp.send(null);
 
     let map = null;
-    alert(xmlhttp.length);
-    alert(xmlhttp.responseText.length);
+    let beta = xmlhttp.responseText;
+    alert(beta[0][0]);
 
     let item = [[17.0118279, 99.8209885], [17.0125099, 99.8215962]];
     let data = {
