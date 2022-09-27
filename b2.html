@@ -29,7 +29,7 @@
   <div id='map'></div>
 
   <script>
-    // let xmlhttp = null, res = null;
+    let xmlhttp = null, res = null;
     let rng = 'A1:O5';
     let url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSBT4eveMztmu5dciQeKM_pqBrvYqPwEPED4KyRzfEZJY28jnB0bTuV2Mci5DhudNU3ouKxe1Iqhq0c/pub?gid=113397203&single=true&output=csv&range=' + rng; // https://docs.google.com/spreadsheet/pub?key=p_aHW5nOrj0VO2ZHTRRtqTQ
 
@@ -37,13 +37,13 @@
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4) {
         document.getElementById("display").innerHTML = xmlhttp.responseText;
-        var res = xmlhttp.responseText;
+        res = xmlhttp.responseText;
+        alert(res);
+
       }
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send(null);
-    
-    alert(res);
 
     
     let map = null;
